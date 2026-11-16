@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>User Dashboard — KowoPay</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div>
+        <a href="index.html">
+          <img src="assets/kowopay-logo.svg" alt="KowoPay" height="38" />
+        </a>
+
+        <nav class="sidebar-nav">
+          <button class="sidebar-link active" data-tab="overview">🏠 Wallet Overview</button>
+          <button class="sidebar-link" data-tab="transfers">💸 Send & Fund Money</button>
+          <button class="sidebar-link" data-tab="bills">📱 Airtime, Data & Bills</button>
+          <button class="sidebar-link" data-tab="cards">💳 Virtual Cards</button>
+          <button class="sidebar-link" data-tab="history">🧾 Transaction History</button>
+          <button class="sidebar-link" data-tab="settings">⚙️ Profile & Security PIN</button>
+        </nav>
+      </div>
+
+      <div style="border-top:1px solid var(--border-subtle);padding-top:16px;">
+        <a href="index.html" class="sidebar-link">← Back to Homepage</a>
+        <button id="logoutBtn" class="sidebar-link" style="color:#F87171;">🚪 Sign Out</button>
+      </div>
+    </aside>
+
+    <!-- Main Workspace -->
+    <main class="main-workspace">
+      <div class="topbar">
+        <div>
+          <h1 id="welcomeHeading" style="font-size:1.5rem;">Welcome back</h1>
+          <p id="accountSubline" style="font-size:0.86rem;color:var(--text-secondary);">Account: —</p>
+        </div>
+        <div style="display:flex;gap:10px;align-items:center;">
+          <span id="kycBadge" class="status-badge status-active">Tier 1</span>
+          <button class="btn btn-primary btn-sm" onclick="openModal('fundModal')">+ Fund Wallet</button>
+        </div>
+      </div>
+
+      <div id="dashAlert" class="alert"></div>
+
+      <!-- TAB 1: OVERVIEW -->
+      <section class="tab-view" id="tab-overview">
+        <div class="stats-grid">
+          <div class="stat-card" style="background:linear-gradient(135deg,#0052FF 0%,#061844 100%);border-color:rgba(56,189,248,0.4);">
+            <div class="label" style="color:#BAE6FD;">Available Wallet Balance</div>
+            <div class="value" id="walletBalanceVal">₦0.00</div>
+            <div style="font-size:0.78rem;color:#E0F2FE;margin-top:6px;" id="nubanCopyLine">NUBAN: —</div>
+          </div>
+
+          <div class="stat-card">
+            <div class="label">Cashback Rewards Vault</div>
+            <div class="value" id="cashbackBalanceVal" style="color:#34D399;">₦0.00</div>
+            <button class="btn btn-outline btn-sm" style="margin-top:8px;" onclick="redeemCashback()">Redeem to Wallet</button>
+          </div>
+
+          <div class="stat-card">
+            <div class="label">Total Outgoing Spend</div>
+            <div class="value" id="totalSpendVal">₦0.00</div>
+            <div style="font-size:0.78rem;color:var(--text-secondary);margin-top:6px;">All settled debits</div>
+          </div>
+        </div>
+
+        <h3 style="margin-bottom:14px;font-size:1.05rem;">Quick Actions</h3>
+        <div class="quick-grid">
+          <div class="quick-tile" onclick="openModal('fundModal')">
+            <div style="font-size:1.5rem;margin-bottom:6px;">➕</div>
+            <strong>Fund Wallet</strong>
+          </div>
+          <div class="quick-tile" onclick="switchTab('transfers')">
+            <div style="font-size:1.5rem;margin-bottom:6px;">🏦</div>
+            <strong>Bank Transfer</strong>
+          </div>
+          <div class="quick-tile" onclick="switchTab('bills')">
+            <div style="font-size:1.5rem;margin-bottom:6px;">📶</div>
+            <strong>Buy Airtime/Data</strong>
+          </div>
+          <div class="quick-tile" onclick="switchTab('bills')">
+            <div style="font-size:1.5rem;margin-bottom:6px;">⚡</div>
+            <strong>Pay Electricity</strong>
+          </div>
+          <div class="quick-tile" onclick="switchTab('cards')">
+            <div style="font-size:1.5rem;margin-bottom:6px;">💳</div>
+            <strong>Virtual Card</strong>
+          </div>
+        </div>
+
+        <div class="panel-card">
+          <div class="panel-header">
+            <h3>Recent Transactions</h3>
+            <button class="btn btn-ghost btn-sm" onclick="switchTab('history')">View All →</button>
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Reference</th>
+                  <th>Description</th>
+                  <th>Category</th>
+                  <th>Amount</th>
+                  <th>Status</th>
+                  <th>Receipt</th>
+                </tr>
+              </thead>
+              <tbody id="recentTxBody"></tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- TAB 2: TRANSFERS -->
+      <section class="tab-view" id="tab-transfers" style="display:none;">
+        <div class="panel-card" style="max-width:620px;">
+          <div class="panel-header">
+            <h3>Send Money (KowoPay P2P & Nigerian Banks)</h3>
+          </div>
+          <form id="transferForm">
+            <div class="form-group">
+              <label for="txDestinationType">Destination Type</label>
+              <select id="txDestinationType" class="form-control">
+                <option value="kowopay">KowoPay Wallet (Instant & Zero Fee)</option>
+                <option value="bank">Other Nigerian Bank (NIP Instant)</option>
+              </select>
+            </div>
+
+            <div class="form-group" id="bankSelectGroup" style="display:none;">
+              <label for="recipientBank">Select Recipient Bank</label>
+              <select id="recipientBank" class="form-control">
+                <option value="GTBank">Guaranty Trust Bank (GTBank)</option>
+                <option value="Access Bank">Access Bank</option>
+                <option value="Zenith Bank">Zenith Bank</option>
+                <option value="First Bank">First Bank of Nigeria</option>
+                <option value="UBA">United Bank for Africa (UBA)</option>
+                <option value="OPay">OPay Digital Services</option>
+                <option value="Moniepoint">Moniepoint MFB</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="recipientAcct">Recipient Account Number (10 Digits)</label>
+              <input type="text" id="recipientAcct" class="form-control" placeholder="e.g. 9048192044" maxlength="10" required />
+            </div>
+
+            <div class="form-group">
+              <label for="recipientName">Recipient Name</label>
+              <input type="text" id="recipientName" class="form-control" placeholder="Enter beneficiary full name" required />
+            </div>
+
+            <div class="form-group">
+              <label for="transferAmount">Amount (₦)</label>
+              <input type="number" id="transferAmount" class="form-control" placeholder="e.g. 15000" min="100" required />
+            </div>
+
+            <div class="form-group">
+              <label for="transferNote">Narration (Optional)</label>
+              <input type="text" id="transferNote" class="form-control" placeholder="What is this transfer for?" />
+            </div>
+
+            <div class="form-group">
+              <label for="transferPin">Your 4-Digit Security PIN</label>
+              <input type="password" id="transferPin" class="form-control" maxlength="4" placeholder="••••" required />
+            </div>
+
+            <button type="submit" class="btn btn-primary btn-block btn-lg">Authorize & Send Money</button>
+          </form>
+        </div>
+      </section>
+
+      <!-- TAB 3: AIRTIME, DATA & BILLS -->
+      <section class="tab-view" id="tab-bills" style="display:none;">
+        <div class="panel-card" style="max-width:620px;">
+          <div class="panel-header">
+            <h3>Airtime, Data & Utility Bills (2% Instant Cashback)</h3>
+          </div>
+          <form id="billsForm">
+            <div class="form-group">
+              <label for="billService">Service Category</label>
+              <select id="billService" class="form-control">
+                <option value="Airtime Top-Up">Mobile Airtime Top-Up</option>
+                <option value="Data Bundle">Mobile Data Bundle</option>
+                <option value="Electricity Prepaid">Electricity Prepaid Token (EEDC / IKEDC / AEDC)</option>
+                <option value="Cable TV">Cable TV Subscription (DStv / GOtv / Startimes)</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="billProvider">Network / Provider</label>
+              <select id="billProvider" class="form-control">
+                <option value="MTN Nigeria">MTN Nigeria</option>
+                <option value="Airtel Nigeria">Airtel Nigeria</option>
+                <option value="Glo Mobile">Glo Mobile</option>
+                <option value="9mobile">9mobile</option>
+                <option value="EEDC Enugu">Enugu Electricity (EEDC)</option>
+                <option value="IKEDC Ikeja">Ikeja Electric (IKEDC)</option>
+                <option value="DStv Compact">DStv / GOtv</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="billTarget">Phone Number / Meter Number / Smartcard ID</label>
+              <input type="text" id="billTarget" class="form-control" placeholder="e.g. 08031234567 or Meter Number" required />
+            </div>
+
+            <div class="form-group">
+              <label for="billAmount">Amount (₦)</label>
+              <input type="number" id="billAmount" class="form-control" placeholder="e.g. 2000" min="50" required />
+            </div>
+
+            <div class="form-group">
+              <label for="billPin">Your 4-Digit Security PIN</label>
+              <input type="password" id="billPin" class="form-control" maxlength="4" placeholder="••••" required />
+            </div>
+
+            <button type="submit" class="btn btn-primary btn-block btn-lg">Pay Bill Instantly</button>
+          </form>
+        </div>
+      </section>
+
+      <!-- TAB 4: VIRTUAL CARDS -->
+      <section class="tab-view" id="tab-cards" style="display:none;">
+        <div class="panel-header">
+          <h3>My Virtual Cards</h3>
+          <button class="btn btn-primary btn-sm" onclick="createNewVirtualCard()">+ Issue New Virtual Card (₦1,500 Fee)</button>
+        </div>
+        <div id="cardsContainer" class="features-grid"></div>
+      </section>
+
+      <!-- TAB 5: FULL HISTORY -->
+      <section class="tab-view" id="tab-history" style="display:none;">
+        <div class="panel-card">
+          <div class="panel-header">
+            <h3>Complete Ledger & Receipts</h3>
+            <input type="text" id="txSearchInput" class="form-control" style="max-width:260px;" placeholder="Search reference or title..." oninput="renderDashboard()" />
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Date</th>
+                  <th>Reference</th>
+                  <th>Title / Counterparty</th>
+                  <th>Category</th>
+                  <th>Amount</th>
+                  <th>Status</th>
+                  <th>Receipt</th>
+                </tr>
+              </thead>
+              <tbody id="fullTxBody"></tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- TAB 6: PROFILE & SECURITY -->
+      <section class="tab-view" id="tab-settings" style="display:none;">
+        <div class="panel-card" style="max-width:600px;">
+          <h3 style="margin-bottom:16px;">Account Profile & KYC Status</h3>
+          <div id="profileSummaryBox" style="margin-bottom:22px;line-height:1.9;color:var(--text-secondary);"></div>
+
+          <button class="btn btn-outline btn-sm" onclick="upgradeKycTier()" style="margin-bottom:26px;">Upgrade KYC Tier</button>
+
+          <h4 style="margin-bottom:12px;border-top:1px solid var(--border-subtle);padding-top:18px;">Change 4-Digit Transaction PIN</h4>
+          <form id="pinChangeForm">
+            <div class="form-group">
+              <label for="oldPin">Current PIN</label>
+              <input type="password" id="oldPin" class="form-control" maxlength="4" required />
+            </div>
+            <div class="form-group">
+              <label for="newPin">New 4-Digit PIN</label>
+              <input type="password" id="newPin" class="form-control" maxlength="4" pattern="\d{4}" required />
+            </div>
+            <button type="submit" class="btn btn-primary">Update Security PIN</button>
+          </form>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <!-- Fund Wallet Modal -->
+  <div class="modal-backdrop" id="fundModal">
+    <div class="modal-box">
+      <div class="panel-header">
+        <h3>Fund KowoPay Wallet</h3>
+        <button class="btn btn-ghost btn-sm" onclick="closeModal('fundModal')">✕</button>
+      </div>
+      <form id="fundWalletForm">
+        <div class="form-group">
+          <label for="fundMethod">Funding Method</label>
+          <select id="fundMethod" class="form-control">
+            <option value="Instant Bank Transfer (NIP)">Instant Bank Transfer (NIP)</option>
+            <option value="Debit Card Top-up">Debit Card Top-up (Paystack/Flutterwave Rail)</option>
+            <option value="USSD Deposit">USSD Deposit (*737# / *901#)</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="fundAmount">Deposit Amount (₦)</label>
+          <input type="number" id="fundAmount" class="form-control" placeholder="e.g. 25000" min="500" required />
+        </div>
+        <button type="submit" class="btn btn-primary btn-block">Credit Wallet Instantly</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Receipt Modal -->
+  <div class="modal-backdrop" id="receiptModal">
+    <div class="modal-box">
+      <div class="panel-header">
+        <h3>KowoPay Transaction Receipt</h3>
+        <button class="btn btn-ghost btn-sm" onclick="closeModal('receiptModal')">✕</button>
+      </div>
+      <div id="receiptContent" style="font-size:0.92rem;line-height:1.8;"></div>
+      <button class="btn btn-primary btn-block" style="margin-top:18px;" onclick="window.print()">Print / Save Receipt PDF</button>
+    </div>
+  </div>
+
+  <script src="config.js"></script>
+  <script src="dashboard.js"></script>
+</body>
+</html>

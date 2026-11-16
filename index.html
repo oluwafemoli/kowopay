@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>KowoPay — Instant Transfers, Smart Wallets & Virtual Cards</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <!-- Live Announcement Banner -->
+  <div class="top-ribbon">
+    <span class="badge">Live</span>
+    <span id="live-announcement">Zero fees on your first 5 bank transfers every week!</span>
+  </div>
+
+  <!-- Navigation -->
+  <header class="navbar">
+    <div class="container nav-inner">
+      <a href="index.html" aria-label="KowoPay Home">
+        <img src="assets/kowopay-logo.svg" alt="KowoPay Logo" height="42" />
+      </a>
+
+      <nav class="nav-links" id="mainNav">
+        <a href="#features">Features</a>
+        <a href="#calculator">Fee Calculator</a>
+        <a href="#how-it-works">How It Works</a>
+        <a href="#security">Security</a>
+        <a href="owner-admin/login.html">Admin Portal</a>
+      </nav>
+
+      <div class="nav-actions">
+        <a href="login.html" class="btn btn-ghost">Log In</a>
+        <a href="signup.html" class="btn btn-primary">Create Free Account</a>
+      </div>
+
+      <button class="mobile-menu-btn" onclick="document.getElementById('mainNav').classList.toggle('mobile-open')">☰ Menu</button>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="container hero-grid">
+      <div>
+        <div class="hero-pill">
+          <span class="dot"></span>
+          <span>CBN-Aligned Digital Wallet & Instant NIP Settlement</span>
+        </div>
+        <h1>
+          Move Money at <span class="gradient-text">Lightning Speed</span> Without Hidden Bank Charges.
+        </h1>
+        <p class="lead">
+          Send Naira across all Nigerian banks in under 3 seconds, fund your wallet instantly, pay electricity & airtime bills with automatic cashback, and shop globally with KowoPay virtual cards.
+        </p>
+        <div class="hero-cta-group">
+          <a href="signup.html" class="btn btn-primary btn-lg">Open Free Wallet →</a>
+          <a href="login.html?demo=1" class="btn btn-outline btn-lg">Launch Live Demo Dashboard</a>
+        </div>
+
+        <div class="hero-trust-row">
+          <div class="trust-item">
+            <strong>99.98%</strong>
+            <span>Transfer Uptime</span>
+          </div>
+          <div class="trust-item">
+            <strong>&lt; 3 Secs</strong>
+            <span>Inter-Bank Settlement</span>
+          </div>
+          <div class="trust-item">
+            <strong>256-Bit</strong>
+            <span>AES & PIN Protection</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Interactive App Preview Card -->
+      <div class="hero-mockup">
+        <div class="mockup-header">
+          <div style="display:flex;align-items:center;gap:10px;">
+            <div style="width:36px;height:36px;border-radius:50%;background:#0052FF;display:flex;align-items:center;justify-content:center;font-weight:700;">BO</div>
+            <div>
+              <div style="font-size:0.86rem;font-weight:700;">Welcome, Oluwafemi</div>
+              <div style="font-size:0.74rem;color:#38BDF8;">Acct: 9042817365 • Tier 3</div>
+            </div>
+          </div>
+          <span class="status-badge status-active">● Protected</span>
+        </div>
+
+        <div class="mockup-wallet-card">
+          <div style="font-size:0.78rem;color:#BAE6FD;margin-bottom:4px;">Available Naira Balance</div>
+          <div style="font-size:2rem;font-weight:800;letter-spacing:-0.02em;margin-bottom:10px;">₦245,850.00</div>
+          <div style="display:flex;justify-content:space-between;font-size:0.78rem;color:#E0F2FE;">
+            <span>Cashback Vault: ₦1,420.50</span>
+            <span>KowoPay MFB</span>
+          </div>
+        </div>
+
+        <div class="mockup-actions">
+          <a href="login.html?demo=1" class="mockup-action-pill">➕ Add Money</a>
+          <a href="login.html?demo=1" class="mockup-action-pill">💸 Transfer</a>
+          <a href="login.html?demo=1" class="mockup-action-pill">📱 Airtime</a>
+          <a href="login.html?demo=1" class="mockup-action-pill">💳 Cards</a>
+        </div>
+
+        <div style="font-size:0.78rem;font-weight:700;color:#94A3B8;margin-bottom:8px;text-transform:uppercase;">Recent Live Activity</div>
+        <div class="mockup-tx-list">
+          <div class="mockup-tx-item">
+            <div>
+              <div style="font-weight:600;">Instant Bank Deposit</div>
+              <div style="font-size:0.74rem;color:#94A3B8;">GTBank NIP • Completed</div>
+            </div>
+            <div style="color:#34D399;font-weight:700;">+₦150,000.00</div>
+          </div>
+          <div class="mockup-tx-item">
+            <div>
+              <div style="font-weight:600;">Transfer to Chidinma Okafor</div>
+              <div style="font-size:0.74rem;color:#94A3B8;">KowoPay P2P • Zero Fee</div>
+            </div>
+            <div style="color:#F8FAFC;font-weight:700;">-₦25,000.00</div>
+          </div>
+          <div class="mockup-tx-item">
+            <div>
+              <div style="font-weight:600;">EEDC Prepaid Token</div>
+              <div style="font-size:0.74rem;color:#94A3B8;">Meter 45091827361</div>
+            </div>
+            <div style="color:#F8FAFC;font-weight:700;">-₦12,000.00</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Core Features -->
+  <section class="section section-alt" id="features">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">Everything In One Wallet</span>
+        <h2>Built for Everyday Payments & Growing Businesses</h2>
+        <p>Every tool you need to receive, send, save, and spend money reliably across Nigeria and international online platforms.</p>
+      </div>
+
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feature-icon">⚡</div>
+          <h3>Instant P2P & Bank Transfers</h3>
+          <p>Send money free to any KowoPay user via account number or phone tag, and transfer seamlessly to all Nigerian commercial & microfinance banks.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">💳</div>
+          <h3>Virtual Mastercard & Visa Cards</h3>
+          <p>Create instant virtual cards for international subscriptions, cloud hosting, ads, and online shopping with one-tap freeze and funding controls.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">📱</div>
+          <h3>Airtime, Data & Utility Bills</h3>
+          <p>Top up MTN, Airtel, Glo, and 9mobile or pay prepaid electricity (EEDC, IKEDC, AEDC) and cable TV bills with instant token delivery and 2% cashback.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">🧾</div>
+          <h3>Smart Transaction Receipts</h3>
+          <p>Every credit and debit generates a verifiable reference ID, fee breakdown, and downloadable receipt for effortless personal or business bookkeeping.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">🔐</div>
+          <h3>4-Digit Transaction PIN & KYC Tiers</h3>
+          <p>Protect every outgoing transfer with mandatory PIN verification, customizable daily transfer limits, and tiered KYC verification upgrades.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">🛡️</div>
+          <h3>Owner & Admin Command Center</h3>
+          <p>Dedicated administrative dashboard to monitor total platform liquidity, approve flagged transactions, manage user accounts, and configure live fees.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Interactive Transfer Fee & Cashback Calculator -->
+  <section class="section" id="calculator">
+    <div class="container">
+      <div class="calc-box">
+        <div>
+          <span class="section-tag">Transparent Pricing</span>
+          <h2 style="font-size:2rem;margin-bottom:12px;">See How Much You Save With KowoPay</h2>
+          <p style="color:var(--text-secondary);margin-bottom:22px;">
+            Calculate your exact transfer fee or airtime cashback reward in real time before making a transaction.
+          </p>
+          <div class="form-group">
+            <label for="calcType">Transaction Type</label>
+            <select id="calcType" class="form-control" onchange="updateFeeCalc()">
+              <option value="p2p">KowoPay-to-KowoPay P2P Transfer</option>
+              <option value="bank">Other Nigerian Bank Transfer (NIP)</option>
+              <option value="airtime">Airtime & Data Top-up (2% Cashback)</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="calcAmount">Amount (₦)</label>
+            <input type="number" id="calcAmount" class="form-control" value="50000" min="100" oninput="updateFeeCalc()" />
+          </div>
+        </div>
+
+        <div style="background:var(--bg-obsidian);border:1px solid var(--border-subtle);border-radius:var(--radius-lg);padding:28px;">
+          <div style="font-size:0.85rem;color:var(--text-secondary);margin-bottom:6px;">Estimated Fee</div>
+          <div id="calcFeeDisplay" style="font-size:2.3rem;font-weight:800;color:#38BDF8;margin-bottom:16px;">₦0.00</div>
+          <div style="display:flex;justify-content:space-between;padding:12px 0;border-top:1px solid var(--border-subtle);font-size:0.92rem;">
+            <span style="color:var(--text-secondary);">Cashback Earned:</span>
+            <strong id="calcCashbackDisplay" style="color:#34D399;">₦0.00</strong>
+          </div>
+          <div style="display:flex;justify-content:space-between;padding:12px 0;border-top:1px solid var(--border-subtle);font-size:0.92rem;">
+            <span style="color:var(--text-secondary);">Total Settled:</span>
+            <strong id="calcTotalDisplay">₦50,000.00</strong>
+          </div>
+          <a href="signup.html" class="btn btn-primary btn-block" style="margin-top:16px;">Start Transacting Now</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- How It Works -->
+  <section class="section section-alt" id="how-it-works">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">3 Simple Steps</span>
+        <h2>Get Your KowoPay Account Number in 60 Seconds</h2>
+      </div>
+      <div class="steps-grid">
+        <div class="step-card">
+          <div class="step-num">1</div>
+          <h3>Create Your Profile</h3>
+          <p style="color:var(--text-secondary);font-size:0.93rem;">Sign up with your full name, email, phone number, and a 4-digit security PIN. Your dedicated 10-digit NUBAN wallet number is generated immediately.</p>
+        </div>
+        <div class="step-card">
+          <div class="step-num">2</div>
+          <h3>Fund Your Wallet</h3>
+          <p style="color:var(--text-secondary);font-size:0.93rem;">Top up instantly via bank transfer or debit card directly from your user dashboard with zero deposit fees.</p>
+        </div>
+        <div class="step-card">
+          <div class="step-num">3</div>
+          <h3>Send, Pay & Create Cards</h3>
+          <p style="color:var(--text-secondary);font-size:0.93rem;">Transfer to any bank, buy airtime/data, pay electricity bills, or issue virtual cards with real-time ledger updates.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Security & Governance -->
+  <section class="section" id="security">
+    <div class="container">
+      <div class="security-banner">
+        <div>
+          <span class="section-tag">Enterprise-Grade Protection</span>
+          <h2 style="font-size:2rem;margin-bottom:14px;">Multi-Layer Fraud Monitoring & Instant Controls</h2>
+          <p style="color:var(--text-secondary);margin-bottom:22px;">
+            High-value transfers are automatically screened by our risk engine, while users retain complete control over their PIN, virtual card freeze status, and session security.
+          </p>
+          <div style="display:flex;gap:12px;flex-wrap:wrap;">
+            <a href="signup.html" class="btn btn-primary">Create User Wallet</a>
+            <a href="owner-admin/login.html" class="btn btn-outline">Owner / Admin Console</a>
+          </div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:12px;">
+          <div class="feature-card" style="padding:18px;">
+            <strong>🔒 Mandatory 4-Digit Transfer PIN</strong>
+            <p style="font-size:0.85rem;margin-top:4px;">Prevents unauthorized wallet debits even on unlocked devices.</p>
+          </div>
+          <div class="feature-card" style="padding:18px;">
+            <strong>❄️ One-Tap Virtual Card Freeze</strong>
+            <p style="font-size:0.85rem;margin-top:4px;">Lock or reveal CVV details anytime from your card vault.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <img src="assets/kowopay-logo.svg" alt="KowoPay" height="38" style="margin-bottom:14px;" />
+          <p style="font-size:0.9rem;max-width:300px;">
+            Modern digital payments, smart Naira wallets, virtual cards, and instant bill settlement engineered for speed and trust.
+          </p>
+        </div>
+        <div>
+          <h4>Platform</h4>
+          <ul>
+            <li><a href="signup.html">Open Wallet</a></li>
+            <li><a href="login.html">User Login</a></li>
+            <li><a href="login.html?demo=1">Interactive Demo</a></li>
+            <li><a href="#calculator">Fee Calculator</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Services</h4>
+          <ul>
+            <li><a href="#features">Bank Transfers</a></li>
+            <li><a href="#features">Virtual Cards</a></li>
+            <li><a href="#features">Airtime & Data</a></li>
+            <li><a href="#features">Electricity Bills</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Administration</h4>
+          <ul>
+            <li><a href="owner-admin/login.html">Owner Admin Login</a></li>
+            <li><a href="owner-admin/index.html">Admin Dashboard</a></li>
+            <li><a href="#security">Security Standards</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>© 2026 KowoPay Financial Technologies. Built by <strong>Boge Expression</strong>.</span>
+        <span>Deployed for <code>oluwafemoli.github.io/kowopay/</code></span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="config.js"></script>
+  <script>
+    (function () {
+      const settings = window.KowoStore.getSettings();
+      if (settings && settings.announcement) {
+        document.getElementById("live-announcement").textContent = settings.announcement;
+      }
+    })();
+
+    function updateFeeCalc() {
+      const type = document.getElementById("calcType").value;
+      const amount = Math.max(0, Number(document.getElementById("calcAmount").value) || 0);
+      const settings = window.KowoStore.getSettings();
+      let fee = 0;
+      let cashback = 0;
+
+      if (type === "bank") {
+        fee = Number(settings.transferFeeFlat ?? 10);
+      } else if (type === "airtime") {
+        cashback = amount * ((Number(settings.airtimeCashbackPercent ?? 2)) / 100);
+      }
+
+      document.getElementById("calcFeeDisplay").textContent = window.KowoStore.formatMoney(fee);
+      document.getElementById("calcCashbackDisplay").textContent = window.KowoStore.formatMoney(cashback);
+      document.getElementById("calcTotalDisplay").textContent = window.KowoStore.formatMoney(amount + fee);
+    }
+  </script>
+</body>
+</html>

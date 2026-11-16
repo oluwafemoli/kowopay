@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Owner & Admin Login — KowoPay</title>
+  <link rel="stylesheet" href="../styles.css" />
+</head>
+<body>
+  <div class="auth-page">
+    <a href="../index.html" style="margin-bottom:22px;">
+      <img src="../assets/kowopay-logo.svg" alt="KowoPay" height="44" />
+    </a>
+
+    <div class="auth-card">
+      <div class="hero-pill" style="margin-bottom:14px;">
+        <span class="dot"></span>
+        <span>Owner & Compliance Portal</span>
+      </div>
+      <h1>Admin Console Sign In</h1>
+      <p class="subtitle">Manage KowoPay liquidity, users, pending transactions, and platform fees.</p>
+
+      <div id="adminLoginAlert" class="alert"></div>
+
+      <form id="adminLoginForm">
+        <div class="form-group">
+          <label for="adminEmail">Administrator Email</label>
+          <input type="email" id="adminEmail" class="form-control" value="admin@kowopay.ng" required />
+        </div>
+
+        <div class="form-group">
+          <label for="adminPassword">Administrator Password</label>
+          <input type="password" id="adminPassword" class="form-control" value="Admin@KowoPay2026" required />
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-block btn-lg">Access Admin Command Center</button>
+      </form>
+
+      <p style="text-align:center;margin-top:18px;font-size:0.86rem;color:var(--text-secondary);">
+        <a href="../index.html" style="color:var(--accent-cyan);">← Return to Public Homepage</a>
+      </p>
+    </div>
+  </div>
+
+  <script src="../config.js"></script>
+  <script>
+    document.getElementById("adminLoginForm").addEventListener("submit", function (e) {
+      e.preventDefault();
+      const email = document.getElementById("adminEmail").value.trim().toLowerCase();
+      const pass = document.getElementById("adminPassword").value;
+      const cfg = window.KOWOPAY_CONFIG;
+      const alertEl = document.getElementById("adminLoginAlert");
+
+      if (email === cfg.adminDefaultEmail.toLowerCase() && pass === cfg.adminDefaultPassword) {
+        localStorage.setItem(cfg.storageKeys.ADMIN_SESSION, "true");
+        alertEl.textContent = "Authenticated! Loading Owner Admin Portal...";
+        alertEl.className = "alert show alert-success";
+        setTimeout(() => window.location.href = "index.html", 500);
+      } else {
+        alertEl.textContent = "Invalid administrator credentials.";
+        alertEl.className = "alert show alert-error";
+      }
+    });
+  </script>
+</body>
+</html>

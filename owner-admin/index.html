@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Owner Admin Portal — KowoPay</title>
+  <link rel="stylesheet" href="../styles.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <div>
+        <a href="../index.html">
+          <img src="../assets/kowopay-logo.svg" alt="KowoPay" height="38" />
+        </a>
+        <div style="margin-top:10px;font-size:0.75rem;color:#38BDF8;font-weight:700;letter-spacing:0.06em;">OWNER ADMIN PORTAL</div>
+
+        <nav class="sidebar-nav">
+          <button class="sidebar-link active" data-admin-tab="overview">📊 Platform Overview</button>
+          <button class="sidebar-link" data-admin-tab="users">👥 User & Wallet Management</button>
+          <button class="sidebar-link" data-admin-tab="transactions">🧾 Transaction Approvals</button>
+          <button class="sidebar-link" data-admin-tab="settings">⚙️ Fees & System Controls</button>
+        </nav>
+      </div>
+
+      <div style="border-top:1px solid var(--border-subtle);padding-top:16px;">
+        <a href="../index.html" class="sidebar-link">← Public Website</a>
+        <button id="adminLogoutBtn" class="sidebar-link" style="color:#F87171;">🚪 Admin Sign Out</button>
+      </div>
+    </aside>
+
+    <main class="main-workspace">
+      <div class="topbar">
+        <div>
+          <h1 style="font-size:1.5rem;">KowoPay Owner Command Center</h1>
+          <p style="font-size:0.86rem;color:var(--text-secondary);">Real-time ledger supervision, user KYC & fee configuration</p>
+        </div>
+        <span class="status-badge status-active">● System Operational</span>
+      </div>
+
+      <div id="adminAlert" class="alert"></div>
+
+      <!-- ADMIN OVERVIEW -->
+      <section class="admin-tab" id="admin-tab-overview">
+        <div class="stats-grid">
+          <div class="stat-card">
+            <div class="label">Total Platform Wallet Liquidity</div>
+            <div class="value" id="adminTotalLiquidity" style="color:#38BDF8;">₦0.00</div>
+          </div>
+          <div class="stat-card">
+            <div class="label">Registered Wallets</div>
+            <div class="value" id="adminTotalUsers">0</div>
+          </div>
+          <div class="stat-card">
+            <div class="label">Total Transaction Volume</div>
+            <div class="value" id="adminTxVolume">₦0.00</div>
+          </div>
+          <div class="stat-card">
+            <div class="label">Pending Compliance Reviews</div>
+            <div class="value" id="adminPendingCount" style="color:#FBBF24;">0</div>
+          </div>
+        </div>
+
+        <div class="panel-card">
+          <div class="panel-header">
+            <h3>Flagged / Pending High-Value Transactions</h3>
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Ref</th>
+                  <th>User</th>
+                  <th>Details</th>
+                  <th>Amount</th>
+                  <th>Status</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody id="adminPendingTxBody"></tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- USERS MANAGEMENT -->
+      <section class="admin-tab" id="admin-tab-users" style="display:none;">
+        <div class="panel-card">
+          <div class="panel-header">
+            <h3>Registered User Accounts</h3>
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>User ID</th>
+                  <th>Full Name & Email</th>
+                  <th>NUBAN</th>
+                  <th>Balance</th>
+                  <th>KYC</th>
+                  <th>Status</th>
+                  <th>Controls</th>
+                </tr>
+              </thead>
+              <tbody id="adminUsersBody"></tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- ALL TRANSACTIONS -->
+      <section class="admin-tab" id="admin-tab-transactions" style="display:none;">
+        <div class="panel-card">
+          <div class="panel-header">
+            <h3>All Platform Ledger Entries</h3>
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Date</th>
+                  <th>Reference</th>
+                  <th>User</th>
+                  <th>Title</th>
+                  <th>Amount</th>
+                  <th>Status</th>
+                  <th>Compliance</th>
+                </tr>
+              </thead>
+              <tbody id="adminAllTxBody"></tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- PLATFORM SETTINGS -->
+      <section class="admin-tab" id="admin-tab-settings" style="display:none;">
+        <div class="panel-card" style="max-width:600px;">
+          <h3 style="margin-bottom:18px;">Platform Fee & Banner Settings</h3>
+          <form id="adminSettingsForm">
+            <div class="form-group">
+              <label for="setTransferFee">Flat Inter-Bank Transfer Fee (₦)</label>
+              <input type="number" id="setTransferFee" class="form-control" min="0" required />
+            </div>
+            <div class="form-group">
+              <label for="setCardFee">Virtual Card Issuance Fee (₦)</label>
+              <input type="number" id="setCardFee" class="form-control" min="0" required />
+            </div>
+            <div class="form-group">
+              <label for="setCashback">Airtime/Bills Cashback (%)</label>
+              <input type="number" step="0.1" id="setCashback" class="form-control" min="0" required />
+            </div>
+            <div class="form-group">
+              <label for="setAnnouncement">Homepage Live Announcement Ribbon</label>
+              <input type="text" id="setAnnouncement" class="form-control" required />
+            </div>
+            <div class="form-group">
+              <label for="setMaintenance">Platform Maintenance Mode</label>
+              <select id="setMaintenance" class="form-control">
+                <option value="false">Disabled (Normal Public Access)</option>
+                <option value="true">Enabled (Pause User Logins)</option>
+              </select>
+            </div>
+            <button type="submit" class="btn btn-primary">Save Platform Settings</button>
+          </form>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script src="../config.js"></script>
+  <script src="admin.js"></script>
+</body>
+</html>

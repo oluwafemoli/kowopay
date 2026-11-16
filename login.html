@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Log In — KowoPay</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="auth-page">
+    <a href="index.html" style="margin-bottom:22px;">
+      <img src="assets/kowopay-logo.svg" alt="KowoPay" height="44" />
+    </a>
+
+    <div class="auth-card">
+      <h1>Welcome Back</h1>
+      <p class="subtitle">Access your KowoPay wallet, virtual cards, and instant transfers.</p>
+
+      <div id="authAlert" class="alert"></div>
+
+      <form id="loginForm">
+        <div class="form-group">
+          <label for="email">Email Address</label>
+          <input type="email" id="email" class="form-control" placeholder="demo@kowopay.ng" required />
+        </div>
+
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input type="password" id="password" class="form-control" placeholder="Enter your password" required />
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-block btn-lg">Log In to Wallet</button>
+      </form>
+
+      <div style="margin-top:16px;padding-top:16px;border-top:1px solid var(--border-subtle);">
+        <button type="button" id="demoLoginBtn" class="btn btn-outline btn-block">
+          ⚡ One-Click Demo User Login
+        </button>
+      </div>
+
+      <p style="text-align:center;margin-top:20px;font-size:0.9rem;color:var(--text-secondary);">
+        New to KowoPay? <a href="signup.html" style="color:var(--accent-cyan);font-weight:600;">Create Free Account</a>
+      </p>
+    </div>
+  </div>
+
+  <script src="config.js"></script>
+  <script src="auth.js"></script>
+</body>
+</html>
